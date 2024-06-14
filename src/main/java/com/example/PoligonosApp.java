@@ -25,51 +25,52 @@ public class PoligonosApp extends Application {
      * Assim, cada polígono é formado por uma lista de pontos.
      */
     private final List<List<Point>> pontosPoligonos = List.of(
-        // Quadrilátero (Quadrado)
-        List.of(
-            new Point( 50,  50),
-            new Point(150,  50),
-            new Point(150, 150),
-            new Point( 50, 150)
-        ),
+            // Quadrilátero (Quadrado)
+            List.of(
+                    new Point(50, 50),
+                    new Point(150, 50),
+                    new Point(150, 150),
+                    new Point(50, 150)
+            ),
 
-        // Quadrilátero (Retângulo)
-        List.of(
-            new Point(200,  50),
-            new Point(400,  50),
-            new Point(400, 100),
-            new Point(200, 100)
-        ),
+            // Quadrilátero (Retângulo)
+            List.of(
+                    new Point(200, 50),
+                    new Point(400, 50),
+                    new Point(400, 100),
+                    new Point(200, 100)
+            ),
 
-        // Triângulo
-        List.of(
-            new Point(300, 250),
-            new Point(350, 150),
-            new Point(400, 250)
-        ),
+            // Triângulo
+            List.of(
+                    new Point(300, 250),
+                    new Point(350, 150),
+                    new Point(400, 250)
+            ),
 
-        // Pentágono
-        List.of(
-            new Point(200, 250),
-            new Point(250, 300),
-            new Point(250, 350),
-            new Point(150, 350),
-            new Point(150, 300)
-        ),
+            // Pentágono
+            List.of(
+                    new Point(200, 250),
+                    new Point(250, 300),
+                    new Point(250, 350),
+                    new Point(150, 350),
+                    new Point(150, 300)
+            ),
 
-        // Hexágono
-        List.of(
-                new Point(320, 270),
-                new Point(370, 320),
-                new Point(370, 370),
-                new Point(320, 420),
-                new Point(270, 370),
-                new Point(270, 320)
-        )
+            // Hexágono
+            List.of(
+                    new Point(320, 270),
+                    new Point(370, 320),
+                    new Point(370, 370),
+                    new Point(320, 420),
+                    new Point(270, 370),
+                    new Point(270, 320)
+            )
     );
 
     /**
      * Executa a aplicação
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -78,6 +79,7 @@ public class PoligonosApp extends Application {
 
     /**
      * Inicia a apresentação da interface gráfica da aplicação.
+     *
      * @param mainStage janela inicial da aplicação
      */
     @Override
@@ -130,15 +132,16 @@ public class PoligonosApp extends Application {
      * @return uma lista de String indicando se o polígono é um "quadrilátero" (quadrado ou retângulo),
      * "triângulo", "pentágono", "hexágono" ou apenas um "polígono" geral quando tiver mais de 6 lados.
      */
-    protected List<String> tipoPoligonos(){
+    protected List<String> tipoPoligonos() {
         return pontosPoligonos.stream()
-                .map(List::size)
                 .map(p -> {
-                    if (p == 3) return "triângulo";
-                    if (p == 4) return "quadrilátero";
-                    if (p == 5) return "pentágono";
-                    if (p == 6) return "hexagóno";
-                    return "polígono";
+                    return switch (p.size()) {
+                        case 3 -> "triângulo";
+                        case 4 -> "quadrilátero";
+                        case 5 -> "pentágono";
+                        case 6 -> "hexágono";
+                        default -> "polígono";
+                    };
                 }).toList();
     }
 
@@ -182,7 +185,7 @@ public class PoligonosApp extends Application {
      *
      * @return uma lista contendo o perímetro de cada polígono
      */
-    protected List<Double> perimetros(){
+    protected List<Double> perimetros() {
         return pontosPoligonos.stream()
                 .flatMap(p ->
                         Stream.of(p.stream()
